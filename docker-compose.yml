@@ -1,12 +1,37 @@
-version: '3'
+version: '3.8'
 services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '81:81'
+      - '80:80' 
       - '443:443'
+      - '81:81' # Puerto de administración
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DISABLE_IPV6: 'true'
+      DB_MYSQL_USER: ${MARIADB_DATABASE_USER}
+      DB_MYSQL_PASSWORD: ${MARIADB_PASSWORD}
+      DB_MYSQL_NAME: ${MARIADB_DATABASE_NAME}
+      
     volumes:
-      - ${NGINX_HOME}/nginx_proxy/data:/data
-      - ${NGINX_HOME}/nginx_proxy/letsencrypt:/etc/letsencrypt
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro 
+      - ${NGINX_HOME}/data:/data
+      - ${NGINX_HOME}/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MARIADB_DATABASE_NAME}
+      MYSQL_USER: ${MARIADB_DATABASE_USER}
+      MYSQL_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro 
+      - ${NGINX_HOME}/mysql:/var/lib/mysql
