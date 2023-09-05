@@ -3,6 +3,8 @@ services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
+    networks:
+     - nginx_net
     ports:
       - '80:80' 
       - '443:443'
@@ -26,6 +28,8 @@ services:
   db:
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
+    networks:
+     - nginx_net
     environment:
       MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MARIADB_DATABASE_NAME}
@@ -35,3 +39,14 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro 
       - ${NGINX_HOME}/mysql:/var/lib/mysql
+
+networks:
+ nginx_net:
+   driver: bridge
+   ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
+         aux_addresses:
+          app: 10.5.0.6
+          db: 10.5.0.5
