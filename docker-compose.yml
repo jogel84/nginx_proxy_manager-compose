@@ -1,11 +1,11 @@
 version: '3.8'
 services:
   app:
-    container_name: nginx
+    #container_name: nginx
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
-    networks:
-      - nginx_net
+    #networks:
+     # - nginx_net
     ports:
       - '80:80' 
       - '443:443'
@@ -27,11 +27,11 @@ services:
       - db
 
   db:
-    container_name: mariadb
+    #container_name: mariadb
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
-    networks:
-      - nginx_net
+    #networks:
+     # - nginx_net
     environment:
       MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MARIADB_DATABASE_NAME}
@@ -42,13 +42,13 @@ services:
       - /etc/timezone:/etc/timezone:ro 
       - ${NGINX_HOME}/mysql:/var/lib/mysql
 
-networks:
- nginx_net:
-   driver: bridge
-   ipam:
-     config:
-       - subnet: 10.5.0.0/16
-         gateway: 10.5.0.1
-         aux_addresses:
-          nginx: 10.5.0.6
-          mariadb: 10.5.0.5
+#networks:
+ #nginx_net:
+  # driver: bridge
+   #ipam:
+    # config:
+     #  - subnet: 10.5.0.0/16
+      #   gateway: 10.5.0.1
+       #  aux_addresses:
+        #  nginx: 10.5.0.6
+         # mariadb: 10.5.0.5
