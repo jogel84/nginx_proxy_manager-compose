@@ -4,7 +4,7 @@ services:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     networks:
-     - nginx_net
+      - nginx_net
     ports:
       - '80:80' 
       - '443:443'
@@ -29,7 +29,7 @@ services:
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
     networks:
-     - nginx_net
+      - nginx_net
     environment:
       MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MARIADB_DATABASE_NAME}
