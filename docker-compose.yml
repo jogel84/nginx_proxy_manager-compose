@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   app:
+    container_name: nginx
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     networks:
@@ -26,6 +27,7 @@ services:
       - db
 
   db:
+    container_name: mariadb
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
     networks:
@@ -48,5 +50,5 @@ networks:
        - subnet: 10.5.0.0/16
          gateway: 10.5.0.1
          aux_addresses:
-          app: 10.5.0.6
-          db: 10.5.0.5
+          nginx: 10.5.0.6
+          mariadb: 10.5.0.5
