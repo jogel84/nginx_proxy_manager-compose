@@ -1,6 +1,6 @@
 services:
   app:
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: 'jc21/nginx-proxy-manager:${CONTAINER_NGINX_VERSION}'
     restart: unless-stopped
     ports:
       - '80:80' 
@@ -22,7 +22,7 @@ services:
       - db
 
   db:
-    image: 'jc21/mariadb-aria:latest'
+    image: 'jc21/mariadb-aria:${CONTAINER_MARIADB_VERSION}'
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
