@@ -2,17 +2,15 @@
 
 Este docker-compose utiliza las siguientes variables:
 
-<note>NGINX_HOME: Ruta donde se guardan los datos dentro del servidor físico</note>
-
-<note>MARIADB_DATABASE_USER: Usuario para la BD</note>
-
-<note>MARIADB_DATABASE_NAME: Nombre de la BD</note>
-
-<note>MARIADB_ROOT_PASSWORD: Contraseña de usuario root de la BD</note>
-
-<note>MARIADB_PASSWORD: Contraseña de la BD</note>
-
-Queda adjunto un archivo de variables.env para utilizarlo como ejemplo de uso
+|  Parámetro                    |   Función                                                     |
+|:------------------------------|:--------------------------------------------------------------|
+| NGINX_HOME                    | Ruta donde se guardan los datos dentro del servidor físico    |
+| MARIADB_DATABASE_USER         | Usuario para la BD                                            |
+| MARIADB_DATABASE_NAME         | Nombre de la BD                                               |
+| MARIADB_ROOT_PASSWORD         | Contraseña de usuario root de la BD                           |
+| MARIADB_PASSWORD              | Contraseña de la BD                                           |
+| CONTAINER_NGINX_VERSION       | Versión de contenedor                                         |
+| CONTAINER_MARIADB_VERSION     | Versión de contenedor                                         |
 
 
 ## Usuario y clave por defecto:
